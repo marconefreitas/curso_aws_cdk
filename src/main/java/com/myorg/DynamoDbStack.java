@@ -1,13 +1,7 @@
 package com.myorg;
 
-import software.amazon.awscdk.core.Construct;
-import software.amazon.awscdk.core.RemovalPolicy;
-import software.amazon.awscdk.core.Stack;
-import software.amazon.awscdk.core.StackProps;
-import software.amazon.awscdk.services.dynamodb.Attribute;
-import software.amazon.awscdk.services.dynamodb.AttributeType;
-import software.amazon.awscdk.services.dynamodb.BillingMode;
-import software.amazon.awscdk.services.dynamodb.Table;
+import software.amazon.awscdk.core.*;
+import software.amazon.awscdk.services.dynamodb.*;
 
 public class DynamoDbStack extends Stack{
 
@@ -37,6 +31,17 @@ public class DynamoDbStack extends Stack{
                 .timeToLiveAttribute("ttl")
                 .removalPolicy(RemovalPolicy.DESTROY)
                 .build();
+        productEventsDynamo.autoScaleReadCapacity(EnableScalingProps.builder()
+                .minCapacity(1)
+                .maxCapacity(4)
+                .build())
+                .scaleOnUtilization(UtilizationScalingProps.builder()
+                        .targetUtilizationPercent(50)
+                        .scaleInCooldown(Duration.seconds(30))
+                        .scaleOutCooldown(Duration.seconds(30))
+                        .build());
+
+
     }
 
     public Table getProductEventsDynamo() {
