@@ -1,6 +1,16 @@
-# Welcome to your CDK Java project!
+# Projeto CDK de Criação de recursos na AWS 
 
-This is a blank project for Java development with CDK.
+Curso da Udemy do Paulo Siecola
+
+Este projeto irá criar o seguinte:
+1 Cluster ECS
+1 VPC
+1 Instancia RDS MySQL
+1 Serviço SNS
+1 Instancia DynamoDB
+2 Serviços no ECS
+1 Fila SQS
+
 
 The `cdk.json` file tells the CDK Toolkit how to execute your app.
 
